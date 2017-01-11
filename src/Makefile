@@ -46,7 +46,7 @@ $(BIN): $(LIBOPENCM3) $(ELF)
 	@ $(CP) $(CPFLAGS) $(ELF) $(BIN)
 
 libopencm3:
-	cd ../libopencm3/ && PATH=$PATH:$PWD/../toolchain/bin/ $(MAKE)
+	@cd ../libopencm3/ && $(shell PATH=$PATH:$PWD/../toolchain/bin/) $(MAKE)
 
 .PHONY:clean
 
@@ -56,7 +56,7 @@ clean:
 	@rm -f $(BIN)
 	@rm -f $(ELF)
 
-clean_lib:
+clean_libopencm3:
 	@cd ../libopencm3/ && $(MAKE) clean
 
 write:$(ELF)
