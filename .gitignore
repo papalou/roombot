@@ -1,0 +1,8 @@
+*.elf
+*.o
+*.bin
+*.swp
+tags
+
+libopencm3/
+toolchain/
