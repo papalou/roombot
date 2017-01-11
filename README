@@ -1,19 +1,16 @@
 Simple projet for my stm32f103 (the cheap 3$ board)
 
 Install 
-	cross-arm-linux-gnueabi 
-	cross-arm-linux-gnueabi-libc
 	openocd
 
 Build: 
-
 	cd src
 	make
 
 Flash:
 	Connect stm flasher
 	cd src
-	make write
+	make write (sudo can be needed)
 
-
-sudo openocd -f ../config/openocd.cfg -c init -c "halt" -c "stm32f1x mass_erase 0" -c "flash erase_check 0" -c "flash write_bank 0 stm32_firmware.bin 0" -c "reset run"
+After the clone of the repository you need to launch "make_dev_env.sh"
+script to set up the development environement.
