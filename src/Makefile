@@ -46,7 +46,8 @@ $(BIN): $(LIBOPENCM3) $(ELF)
 	@ $(CP) $(CPFLAGS) $(ELF) $(BIN)
 
 libopencm3:
-	@cd ../libopencm3/ && $(shell PATH=$PATH:$PWD/../toolchain/bin/) $(MAKE)
+	@echo Build Libopencm3
+	@cd ../libopencm3/ && export PATH=$$PATH:$(shell pwd)/../toolchain/bin/ && $(MAKE)
 
 .PHONY:clean
 
@@ -57,7 +58,8 @@ clean:
 	@rm -f $(ELF)
 
 clean_libopencm3:
-	@cd ../libopencm3/ && $(MAKE) clean
+	@echo Clean Libopencm3
+	@cd ../libopencm3/ && export PATH=$$PATH:$(shell pwd)/../toolchain/bin/ && $(MAKE) clean
 
 write:$(ELF)
 	openocd -f ../config/openocd.cfg -c "init" \
