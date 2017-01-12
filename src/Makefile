@@ -34,31 +34,36 @@ all:$(BIN)
 	@echo "[ build $(BIN) ]"
 
 %.o:%.c
-	@ echo Cross Compile
+	@ echo "[ Compile .c -> .o ]"
 	@$(CC) $(INCLUDE) $(CFLAGS) $< -o $@
 
 $(ELF):$(OBJECTS)
-	@ echo Create ELF
+	@ echo "[ Create ELF ]"
 	@$(CC) -o $(ELF) $(OBJECTS) $(LDFLAGS)
 
 $(BIN): $(LIBOPENCM3) $(ELF)
-	@ echo objcopy elf to bin
+	@ echo "[ objcopy elf to bin ]"
 	@ $(CP) $(CPFLAGS) $(ELF) $(BIN)
 
 libopencm3:
-	@echo Build Libopencm3
-	@cd ../libopencm3/ && export PATH=$$PATH:$(shell pwd)/../toolchain/bin/ && $(MAKE)
+	@echo "[ Build Libopencm3 for stm32f1 ]"
+	@cd ../libopencm3/ && export PATH=$$PATH:$(shell pwd)/../toolchain/bin/ && $(MAKE) lib/stm32/f1
+
+$(LIBOPENCM3):libopencm3
 
 .PHONY:clean
 
+dist_clean:clean clean_libopencm3
+	@echo "[ Clean ALL project ]"
+
 clean:
-	@echo "[ clean project ]"
+	@echo "[ clean SRC ]"
 	@rm -f $(OBJECTS)
 	@rm -f $(BIN)
 	@rm -f $(ELF)
 
 clean_libopencm3:
-	@echo Clean Libopencm3
+	@echo "[ Clean Libopencm3 ]"
 	@cd ../libopencm3/ && export PATH=$$PATH:$(shell pwd)/../toolchain/bin/ && $(MAKE) clean
 
 write:$(ELF)
