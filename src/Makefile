@@ -3,7 +3,9 @@ ELF=stm32_firmware.elf
 
 LIBOPENCM3=../libopencm3/lib/libopencm3_stm32f1.a
 
-SRC=main.c
+SRC=                        \
+main.c                      \
+usart.c
 
 LKR_SCRIPT = linker/stm32f103x8.ld
 
